@@ -1,0 +1,228 @@
+object FrMain: TFrMain
+  Left = 346
+  Height = 600
+  Top = 364
+  Width = 800
+  Caption = 'Memory Manager Yaesu FT-736R - IW2NOY'
+  ClientHeight = 600
+  ClientWidth = 800
+  Position = poDesktopCenter
+  LCLVersion = '4.4.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 0
+    Width = 800
+    Alignment = taLeftJustify
+    Caption = '   Memory Manager - Yaesu FT-736R'
+    ClientHeight = 50
+    ClientWidth = 800
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -24
+    Font.Name = 'Showcard Gothic'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 0
+    object btnInfo: TBitBtn
+      Left = 632
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'Info...'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnInfoClick
+    end
+    object btnExit: TBitBtn
+      Left = 712
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = '&Esci'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnExitClick
+    end
+    object btnSync: TBitBtn
+      Left = 472
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = '&Sync-All'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
+      TabOrder = 2
+      OnClick = btnSyncClick
+    end
+    object btnSatMode: TBitBtn
+      Left = 552
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'Sat-Mem'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnSatModeClick
+    end
+  end
+  object grdMemories: TDBGrid
+    Left = 0
+    Height = 484
+    Top = 48
+    Width = 800
+    Color = clWindow
+    Columns = <    
+      item
+        Alignment = taCenter
+        Font.CharSet = ANSI_CHARSET
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Title.Caption = 'id'
+        Width = 40
+        FieldName = 'id'
+      end    
+      item
+        Alignment = taCenter
+        Title.Caption = 'freq'
+        Width = 80
+        FieldName = 'freq'
+      end    
+      item
+        Alignment = taCenter
+        Title.Caption = 'mode'
+        Width = 40
+        FieldName = 'mode'
+      end    
+      item
+        Alignment = taCenter
+        Title.Caption = 'rpt_shift'
+        Width = 40
+        FieldName = 'rpt_shift'
+      end    
+      item
+        Alignment = taCenter
+        Title.Caption = 'rpt_tone'
+        Width = 40
+        FieldName = 'rpt_tone'
+      end    
+      item
+        Alignment = taCenter
+        Title.Caption = 'band_mod'
+        Width = 80
+        FieldName = 'band_mod'
+      end    
+      item
+        Title.Caption = 'mem_tag'
+        Width = 200
+        FieldName = 'mem_tag'
+      end>
+    DataSource = dsMain
+    TabOrder = 1
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 577
+    Width = 800
+    Panels = <    
+      item
+        Width = 200
+      end    
+      item
+        Width = 400
+      end    
+      item
+        Width = 200
+      end>
+    SimplePanel = False
+  end
+  object SQLite3Connection1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    AlwaysUseBigint = False
+    Left = 64
+    Top = 544
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = SQLite3Connection1
+    Left = 181
+    Top = 544
+  end
+  object SQLQuery1: TSQLQuery
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'freq'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'mode'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'rpt_shift'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'rpt_tone'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'band_mod'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'mem_tag'
+        DataType = ftMemo
+        Precision = -1
+      end>
+    Database = SQLite3Connection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from memories;'
+    )
+    Params = <>
+    Macros = <>
+    Left = 272
+    Top = 544
+  end
+  object dsMain: TDataSource
+    DataSet = SQLQuery1
+    Left = 360
+    Top = 544
+  end
+end
