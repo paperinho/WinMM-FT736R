@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 program WinMMFT736R;
 
 {$mode objfpc}{$H+}
@@ -27,3 +28,34 @@ begin
   Application.Run;
 end.
 
+=======
+program WinMMFT736R;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  {$IFDEF HASAMIGA}
+  athreads,
+  {$ENDIF}
+  Interfaces, // this includes the LCL widgetset
+  Forms, UMain, uframe_row, USatManager
+  { you can add units after this };
+
+{$R *.res}
+
+begin
+  RequireDerivedFormResource:=True;
+  Application.Scaled:=True;
+  {$PUSH}{$WARN 5044 OFF}
+  Application.MainFormOnTaskbar:=True;
+  {$POP}
+  Application.Initialize;
+  Application.CreateForm(TFrMain, FrMain);
+  Application.CreateForm(TFrSatManager, FrSatManager);
+  Application.Run;
+end.
+
+>>>>>>> 1cfa27605bdedc6d6b2e6eb114899d54c04ab38c
