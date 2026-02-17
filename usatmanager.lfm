@@ -1,7 +1,7 @@
 object FrSatManager: TFrSatManager
-  Left = 1069
+  Left = 1029
   Height = 600
-  Top = 285
+  Top = 296
   Width = 800
   Caption = 'FrSatManager'
   ClientHeight = 600
@@ -24,46 +24,6 @@ object FrSatManager: TFrSatManager
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-  end
-  object grdSat: TDBGrid
-    Left = 0
-    Height = 484
-    Top = 48
-    Width = 800
-    Color = clWindow
-    Columns = <    
-      item
-        Title.Caption = 'id'
-        Width = 40
-        FieldName = 'id'
-      end    
-      item
-        Title.Caption = 'rx_freq'
-        Width = 80
-        FieldName = 'rx_freq'
-      end    
-      item
-        Title.Caption = 'rx_mode'
-        Width = 80
-        FieldName = 'rx_mode'
-      end    
-      item
-        Title.Caption = 'tx_freq'
-        Width = 80
-        FieldName = 'tx_freq'
-      end    
-      item
-        Title.Caption = 'tx_mode'
-        Width = 80
-        FieldName = 'tx_mode'
-      end    
-      item
-        Title.Caption = 'mem_tag'
-        Width = 200
-        FieldName = 'mem_tag'
-      end>
-    DataSource = dsSat
-    TabOrder = 1
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -90,55 +50,7 @@ object FrSatManager: TFrSatManager
     DefaultCaption = True
     Kind = bkClose
     ModalResult = 11
-    TabOrder = 3
+    TabOrder = 2
     OnClick = BitBtn1Click
-  end
-  object dsSat: TDataSource
-    DataSet = querySat
-    Left = 31
-    Top = 536
-  end
-  object querySat: TSQLQuery
-    MaxIndexesCount = 4
-    FieldDefs = <    
-      item
-        Name = 'id'
-        DataType = ftMemo
-        Precision = -1
-      end    
-      item
-        Name = 'rx_freq'
-        DataType = ftMemo
-        Precision = -1
-      end    
-      item
-        Name = 'rx_mode'
-        DataType = ftMemo
-        Precision = -1
-      end    
-      item
-        Name = 'tx_freq'
-        DataType = ftMemo
-        Precision = -1
-      end    
-      item
-        Name = 'tx_mode'
-        DataType = ftMemo
-        Precision = -1
-      end    
-      item
-        Name = 'mem_tag'
-        DataType = ftMemo
-        Precision = -1
-      end>
-    Database = FrMain.SQLite3Connection1
-    Transaction = FrMain.SQLTransaction1
-    SQL.Strings = (
-      'select * from sat_memories'
-    )
-    Params = <>
-    Macros = <>
-    Left = 101
-    Top = 536
   end
 end

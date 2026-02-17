@@ -1,7 +1,7 @@
 object FrMain: TFrMain
-  Left = 346
+  Left = 993
   Height = 600
-  Top = 364
+  Top = 462
   Width = 800
   Caption = 'Memory Manager Yaesu FT-736R - IW2NOY'
   ClientHeight = 600
@@ -57,7 +57,7 @@ object FrMain: TFrMain
       OnClick = btnExitClick
     end
     object btnSync: TBitBtn
-      Left = 472
+      Left = 552
       Height = 30
       Top = 8
       Width = 75
@@ -70,75 +70,6 @@ object FrMain: TFrMain
       TabOrder = 2
       OnClick = btnSyncClick
     end
-    object btnSatMode: TBitBtn
-      Left = 552
-      Height = 30
-      Top = 8
-      Width = 75
-      Caption = 'Sat-Mem'
-      Font.CharSet = ANSI_CHARSET
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Pitch = fpVariable
-      Font.Quality = fqDraft
-      ParentFont = False
-      TabOrder = 3
-      OnClick = btnSatModeClick
-    end
-  end
-  object grdMemories: TDBGrid
-    Left = 0
-    Height = 484
-    Top = 48
-    Width = 800
-    Color = clWindow
-    Columns = <    
-      item
-        Alignment = taCenter
-        Font.CharSet = ANSI_CHARSET
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        Title.Caption = 'id'
-        Width = 40
-        FieldName = 'id'
-      end    
-      item
-        Alignment = taCenter
-        Title.Caption = 'freq'
-        Width = 80
-        FieldName = 'freq'
-      end    
-      item
-        Alignment = taCenter
-        Title.Caption = 'mode'
-        Width = 40
-        FieldName = 'mode'
-      end    
-      item
-        Alignment = taCenter
-        Title.Caption = 'rpt_shift'
-        Width = 40
-        FieldName = 'rpt_shift'
-      end    
-      item
-        Alignment = taCenter
-        Title.Caption = 'rpt_tone'
-        Width = 40
-        FieldName = 'rpt_tone'
-      end    
-      item
-        Alignment = taCenter
-        Title.Caption = 'band_mod'
-        Width = 80
-        FieldName = 'band_mod'
-      end    
-      item
-        Title.Caption = 'mem_tag'
-        Width = 200
-        FieldName = 'mem_tag'
-      end>
-    DataSource = dsMain
-    TabOrder = 1
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -157,9 +88,225 @@ object FrMain: TFrMain
       end>
     SimplePanel = False
   end
+  object PageControl1: TPageControl
+    Left = 8
+    Height = 480
+    Top = 56
+    Width = 800
+    ActivePage = Memories
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabIndex = 0
+    TabOrder = 2
+    OnChange = PageControl1Change
+    object Memories: TTabSheet
+      Caption = 'Memories'
+      ClientHeight = 446
+      ClientWidth = 792
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -16
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      ParentFont = False
+      object grdMemories: TDBGrid
+        Left = -15
+        Height = 418
+        Top = 0
+        Width = 800
+        Color = clWindow
+        Columns = <        
+          item
+            Alignment = taCenter
+            Font.CharSet = ANSI_CHARSET
+            Font.Pitch = fpVariable
+            Font.Quality = fqDraft
+            Title.Alignment = taCenter
+            Title.Caption = 'CH'
+            Width = 40
+            FieldName = 'id'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'Frequenza'
+            Width = 80
+            FieldName = 'freq'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'Mode'
+            Width = 40
+            FieldName = 'mode'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'RPT Shift'
+            Width = 60
+            FieldName = 'rpt_shift'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'RPT Tone'
+            Width = 60
+            FieldName = 'rpt_tone'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'Band Module'
+            Width = 80
+            FieldName = 'band_mod'
+          end        
+          item
+            Title.Caption = 'Memory Tag'
+            Width = 200
+            FieldName = 'mem_tag'
+          end>
+        DataSource = dsMain
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -13
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 0
+      end
+      object DBNavigator2: TDBNavigator
+        Left = -7
+        Height = 25
+        Top = 424
+        Width = 792
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 792
+        DataSource = dsMain
+        Options = []
+        TabOrder = 1
+      end
+    end
+    object SatMemories: TTabSheet
+      Caption = 'Satellite Memories'
+      ClientHeight = 446
+      ClientWidth = 792
+      object grdSat: TDBGrid
+        Left = -15
+        Height = 418
+        Top = 0
+        Width = 800
+        Color = clWindow
+        Columns = <        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'CH'
+            Width = 40
+            FieldName = 'id'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'RX Frequency (Down)'
+            Width = 150
+            FieldName = 'rx_freq'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'RX Mode'
+            Width = 80
+            FieldName = 'rx_mode'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'TX Frequency (Up)'
+            Width = 150
+            FieldName = 'tx_freq'
+          end        
+          item
+            Alignment = taCenter
+            Title.Alignment = taCenter
+            Title.Caption = 'TX Mode'
+            Width = 80
+            FieldName = 'tx_mode'
+          end        
+          item
+            Title.Caption = 'Memoy Tag'
+            Width = 200
+            FieldName = 'mem_tag'
+          end>
+        DataSource = dsSat
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -13
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+        TabOrder = 0
+      end
+      object DBNavigator1: TDBNavigator
+        Left = -4
+        Height = 25
+        Top = 424
+        Width = 788
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 25
+        ClientWidth = 788
+        DataSource = dsSat
+        Options = []
+        TabOrder = 1
+      end
+    end
+    object Settings: TTabSheet
+      Caption = 'Settings'
+      ClientHeight = 446
+      ClientWidth = 792
+      object DBSelezionatoLabel: TLabel
+        Left = 8
+        Height = 25
+        Top = 40
+        Width = 185
+        Caption = 'Database Selezionato:'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -19
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+      end
+      object DBNameLabel: TLabel
+        Left = 208
+        Height = 25
+        Top = 40
+        Width = 122
+        Caption = 'DBSelezionato'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -19
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        ParentFont = False
+      end
+    end
+  end
   object SQLite3Connection1: TSQLite3Connection
     Connected = False
     LoginPrompt = False
+    DatabaseName = 'D:\Git-Repo\WinMM-FT736R\ft736r_memory.db'
     KeepConnection = False
     Transaction = SQLTransaction1
     AlwaysUseBigint = False
@@ -213,7 +360,7 @@ object FrMain: TFrMain
     Database = SQLite3Connection1
     Transaction = SQLTransaction1
     SQL.Strings = (
-      'select * from memories;'
+      'SELECT CAST(id AS VARCHAR(5)) as id, CAST(freq AS VARCHAR(20)) as freq, CAST(mode AS VARCHAR(10)) as mode, CAST(rpt_shift AS VARCHAR(10)) as rpt_shift, CAST(rpt_tone AS VARCHAR(10)) as rpt_tone, CAST(band_mod AS VARCHAR(10)) as band_mod, CAST(mem_tag AS VARCHAR(100)) as mem_tag FROM memories ORDER BY CAST(id AS INTEGER) ASC'
     )
     Params = <>
     Macros = <>
@@ -223,6 +370,54 @@ object FrMain: TFrMain
   object dsMain: TDataSource
     DataSet = SQLQuery1
     Left = 360
+    Top = 544
+  end
+  object dsSat: TDataSource
+    DataSet = querySat
+    Left = 696
+    Top = 544
+  end
+  object querySat: TSQLQuery
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'rx_freq'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'rx_mode'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'tx_freq'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'tx_mode'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'mem_tag'
+        DataType = ftMemo
+        Precision = -1
+      end>
+    Database = SQLite3Connection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'SELECT CAST(id AS VARCHAR(5)) as id, CAST(rx_freq AS VARCHAR(20)) as rx_freq, CAST(rx_mode AS VARCHAR(10)) as rx_mode, CAST(tx_freq AS VARCHAR(20)) as tx_freq, CAST(tx_mode AS VARCHAR(10)) as tx_mode, CAST(mem_tag AS VARCHAR(100)) as mem_tag FROM sat_memories ORDER BY CAST(id AS INTEGER) ASC'
+    )
+    Params = <>
+    Macros = <>
+    Left = 648
     Top = 544
   end
 end

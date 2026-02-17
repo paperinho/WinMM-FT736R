@@ -12,10 +12,7 @@ type
   { TFrSatManager }
   TFrSatManager = class(TForm)
     BitBtn1: TBitBtn;
-    dsSat: TDataSource;
-    grdSat: TDBGrid;
     Panel1: TPanel;
-    querySat: TSQLQuery;
     StatusBar1: TStatusBar;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -38,29 +35,42 @@ uses
 
 procedure TFrSatManager.FormShow(Sender: TObject);
 begin
-  // Colleghiamo la query alla connessione della Main
-  querySat.Database := FrMain.SQLite3Connection1;
-  querySat.Transaction := FrMain.trans;
+  // 1. SICUREZZA: Verifichiamo che la Main sia pronta (evita l'Access Violation)
+  if (FrMain = nil) or (FrMain.conn = nil) then begin
+    ShowMessage('Errore: La connessione principale non è disponibile.');
+    Exit;
+  end;
 
-  querySat.Close;
-  querySat.SQL.Text := 'SELECT * FROM sat_memories ORDER BY id ASC';
-  querySat.Open;
+  try
+    // 2. COLLEGAMENTO DEI COMPONENTI (Saldatura software)
+    // Non farlo nel Designer, forzalo qui via codice
+    FrMain.querySat.Database    := FrMain.conn;
+    FrMain.querySat.Transaction := FrMain.trans;
+    FrMain.dsSat.DataSet        := FrMain.querySat;
+    FrMain.grdSat.DataSource    := FrMain.dsSat;
 
-  // Agganciamo la formattazione a entrambi i campi
-  querySat.FieldByName('rx_freq').OnGetText := @OnGetFreqText;
-  querySat.FieldByName('tx_freq').OnGetText := @OnGetFreqText;
+    // 3. APERTURA DATI
+    FrMain.querySat.Close;
+    FrMain.querySat.SQL.Text := 'SELECT * FROM sat_memories ORDER BY id ASC';
+    FrMain.querySat.Open;
 
-  // Rinominiamo le colonne per chiarezza assoluta
-  grdSat.Columns[0].Title.Caption := 'CH';
-  grdSat.Columns[1].Title.Caption := 'FREQ RX (Down)';
-  grdSat.Columns[2].Title.Caption := 'MODO RX';
-  grdSat.Columns[3].Title.Caption := 'FREQ TX (Up)';
-  grdSat.Columns[4].Title.Caption := 'MODO TX';
-  grdSat.Columns[5].Title.Caption := 'NOTE / SATELLITE';
+    // 4. CONFIGURAZIONE COLONNE (Tutte quelle che volevi)
+    FrMain.grdSat.Columns.Clear;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'id';      Title.Caption := 'CH'; Width := 40; Alignment := taCenter; end;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'rx_freq'; Title.Caption := 'FREQ RX (Down)'; Width := 120; Alignment := taCenter; end;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'rx_mode'; Title.Caption := 'MODO RX'; Width := 80; Alignment := taCenter; end;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'tx_freq'; Title.Caption := 'FREQ TX (Up)'; Width := 120; Alignment := taCenter; end;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'tx_mode'; Title.Caption := 'MODO TX'; Width := 80; Alignment := taCenter; end;
+    with FrMain.grdSat.Columns.Add do begin FieldName := 'mem_tag'; Title.Caption := 'NOTE / SATELLITE'; Width := 180; end;
 
-  // Centriamo le frequenze
-  grdSat.Columns[1].Alignment := taCenter;
-  grdSat.Columns[3].Alignment := taCenter;
+    // 5. AGGANCIO FORMATTAZIONE GOLD STANDARD
+    FrMain.querySat.FieldByName('rx_freq').OnGetText := @OnGetFreqText;
+    FrMain.querySat.FieldByName('tx_freq').OnGetText := @OnGetFreqText;
+
+  except
+    on E: Exception do
+      ShowMessage('EVE: Errore durante il caricamento Satelliti -> ' + E.Message);
+  end;
 end;
 
 procedure TFrSatManager.BitBtn1Click(Sender: TObject);
